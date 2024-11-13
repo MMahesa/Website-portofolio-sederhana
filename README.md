@@ -35,14 +35,6 @@ Project ini dibuat untuk memperlihatkan berbagai aspek keterampilan saya dalam m
 
 Tampilan dari website ini dibuat untuk tujuan pembelajaran saja. Dalam proyek ini, saya berfokus pada penggunaan berbagai teknologi untuk menciptakan antarmuka yang responsif dan dinamis. Meskipun tidak semua fitur mungkin sudah sepenuhnya selesai, namun saya berharap project ini menjadi langkah pertama saya dalam belajar pengembangan web.
 
-## **Contribute**
-
-Project ini bersifat open-source, jadi saya sangat terbuka jika ada yang ingin berkontribusi untuk memperbaiki atau menambahkan fitur-fitur baru. Jika kamu tertarik untuk berkontribusi, silakan ajukan Pull Request (PR) atau Issue di GitHub!
-
-## **Lisensi**
-
-Distribusi project ini dilisensikan di bawah MIT License.
-
 ## **Tentang Saya**
 
 **Nama saya M Mahesa, seorang mahasiswa. Saya masih dalam tahap pembelajaran dan bersemangat untuk berkembang di bidang ini. Meskipun saya belum memiliki pengalaman kerja sebagai pengembang web, project ini adalah langkah pertama saya untuk membangun portofolio dan menunjukkan keterampilan yang saya pelajari.**
