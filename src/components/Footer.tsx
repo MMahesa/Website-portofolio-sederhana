@@ -4,14 +4,15 @@ import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/fre
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-gray-900 text-white py-16">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12"> {/* Grid responsif yang lebih luas */}
+          
           {/* About Us */}
           <div>
             <h3 className="text-lg font-semibold mb-4">About Me</h3>
             <p className="text-gray-400 text-sm">
-              I am dedicated to providing the best service with a focus on quality, reliability and customer satisfaction.
+              I am dedicated to providing the best service with a focus on quality, reliability, and customer satisfaction.
             </p>
           </div>
 
@@ -40,24 +41,23 @@ const Footer = () => {
             <p className="text-gray-400 text-sm mb-2">Jl. Ahmad Dhani, Tanggerang, Indonesia</p>
             <p className="text-gray-400 text-sm mb-2">Phone: (021) 1234-5678</p>
             <p className="text-gray-400 text-sm">Email: mmahesaa1124@gmail.com</p>
-
           </div>
 
           {/* Social Media Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
+            <h3 className="text-lg font-semibold mb-4">Follow Me</h3>
+            <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-red-600 transition-colors duration-300">
-                <FontAwesomeIcon icon={faFacebook} className="text-2xl" />
+                <FontAwesomeIcon icon={faFacebook} className="text-3xl" /> {/* Ukuran ikon yang lebih besar */}
               </a>
               <a href="#" className="text-gray-400 hover:text-red-600 transition-colors duration-300">
-                <FontAwesomeIcon icon={faTwitter} className="text-2xl" />
+                <FontAwesomeIcon icon={faTwitter} className="text-3xl" />
               </a>
               <a href="#" className="text-gray-400 hover:text-red-600 transition-colors duration-300">
-                <FontAwesomeIcon icon={faInstagram} className="text-2xl" />
+                <FontAwesomeIcon icon={faInstagram} className="text-3xl" />
               </a>
               <a href="#" className="text-gray-400 hover:text-red-600 transition-colors duration-300">
-                <FontAwesomeIcon icon={faLinkedin} className="text-2xl" />
+                <FontAwesomeIcon icon={faLinkedin} className="text-3xl" />
               </a>
             </div>
           </div>
