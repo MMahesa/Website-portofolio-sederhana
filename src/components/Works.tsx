@@ -130,7 +130,7 @@ const RecentWorks: React.FC = () => {
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text mb-4">
             Recent Works
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
