@@ -1,43 +1,59 @@
-import React, { ReactNode } from 'react';
-import { CheckCircle, AlertCircle, Info } from 'lucide-react';
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
 
-interface AlertProps {
-    type?: "success" | "error" | "info";
-    children: ReactNode;
-    className?: string;
-}
+import { cn } from "@/lib/utils"
 
+const alertVariants = cva(
+  "relative w-full rounded-lg border border-gray-200 p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-gray-950 dark:border-gray-800 dark:[&>svg]:text-gray-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-white text-gray-950 dark:bg-gray-950 dark:text-gray-50",
+        destructive:
+          "border-red-500/50 text-red-500 dark:border-red-500 [&>svg]:text-red-500 dark:border-red-900/50 dark:text-red-900 dark:dark:border-red-900 dark:[&>svg]:text-red-900",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
 
-const Alert: React.FC<AlertProps> = ({ type = "info", children, className = "" }) => {
+const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
+>(({ className, variant, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="alert"
+    className={cn(alertVariants({ variant }), className)}
+    {...props}
+  />
+))
+Alert.displayName = "Alert"
 
-    let icon, colorClass;
-    switch (type) {
-        case "success":
-            icon = <CheckCircle className="text-green-500 w-5 h-5" />;
-            colorClass = "bg-green-50 text-green-800 border-green-200";
-            break;
-        case "error":
-            icon = <AlertCircle className="text-red-500 w-5 h-5" />;
-            colorClass = "bg-red-50 text-red-800 border-red-200";
-            break;
-        case "info":
-        default:
-            icon = <Info className="text-blue-500 w-5 h-5" />;
-            colorClass = "bg-blue-50 text-blue-800 border-blue-200";
-            break;
-    }
+const AlertTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    {...props}
+  />
+))
+AlertTitle.displayName = "AlertTitle"
 
-    return (
-        <div className={`flex items-center p-4 border rounded-lg ${colorClass} ${className}`}>
-            <span className="mr-3">{icon}</span>
-            <span>{children}</span>
-        </div>
-    );
-};
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    {...props}
+  />
+))
+AlertDescription.displayName = "AlertDescription"
 
-// AlertDescription untuk teks deskripsi pesan di dalam Alert
-const AlertDescription: React.FC<{ children: ReactNode }> = ({ children }) => (
-    <span>{children}</span>
-);
-
-export { Alert, AlertDescription };
+export { Alert, AlertTitle, AlertDescription }

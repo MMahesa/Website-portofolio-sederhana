@@ -1,88 +1,235 @@
-import React, { useEffect } from 'react';
-import { Briefcase, GraduationCap, Laptop, Rocket } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  Briefcase,
+  GraduationCap,
+  Laptop,
+  Rocket,
+  ChevronRight,
+  Share2,
+  Download,
+  Eye,
+  ThumbsUp,
+  LucideIcon
+} from 'lucide-react';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle
+} from '@/components/ui/alert';
 
-const Experience = () => {
-  // Effect untuk mengatur scroll padding
+interface ExperienceItem {
+  id: string;
+  Icon: LucideIcon;
+  timePeriod: string;
+  title: string;
+  description: string;
+  details: string[];
+  skills: string[];
+}
+
+interface ExperienceItemProps extends ExperienceItem {
+  isLast: boolean;
+  isExpanded: boolean;
+  onToggle: () => void;
+  onShare: () => void;
+  onDownload: () => void;
+  likes: number;
+  onLike: () => void;
+}
+
+const Experience: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'education' | 'work'>('education');
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [likes, setLikes] = useState<{ [key: string]: number }>({});
+
   useEffect(() => {
-    // Menambahkan scroll-padding-top ke document.documentElement
-    document.documentElement.style.scrollPaddingTop = '80px'; // Sesuaikan dengan tinggi navbar Anda
-    
+    // Add scroll padding for smooth scrolling on mobile
+    document.documentElement.style.scrollPaddingTop = '80px';
     return () => {
-      // Cleanup saat component unmount
       document.documentElement.style.scrollPaddingTop = '0';
     };
   }, []);
 
+  const handleShare = (title: string): void => {
+    setAlertMessage(`Shared ${title} experience!`);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
+  };
+
+  const handleDownload = (title: string): void => {
+    setAlertMessage(`Downloaded ${title} certificate!`);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
+  };
+
+  const handleLike = (id: string): void => {
+    setLikes((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1,
+    }));
+  };
+
+  const educationData: ExperienceItem[] = [
+    {
+      id: 'edu1',
+      Icon: GraduationCap,
+      timePeriod: "2018 - 2021",
+      title: "Junior High School",
+      description: "Studied foundational knowledge and self-development through academic and extracurricular activities.",
+      details: [
+        "Learned basic subjects such as Mathematics, Indonesian Language, and Science.",
+        "Active in extracurricular activities.",
+        "Participated in quiz competitions.",
+        "Developed communication and teamwork skills."
+      ],
+      skills: ["Critical Thinking", "Data Analysis", "Research"]
+    },
+    {
+      id: 'edu2',
+      Icon: Briefcase,
+      timePeriod: "2021 - 2024",
+      title: "Senior High School",
+      description: "Gained a deeper understanding of science and prepared for higher education.",
+      details: [
+        "Advanced understanding of Mathematics and Physics.",
+        "Active in OSIS (student council) and social activities.",
+        "Mentored younger students.",
+        "Participated in intensive computer studies program."
+      ],
+      skills: ["Programming", "Leadership", "Problem Solving"]
+    },
+    {
+      id: 'edu3',
+      Icon: Laptop,
+      timePeriod: "2024 - Present",
+      title: "Informatics Engineering Student",
+      description: "Studied programming, advanced mathematics, and system development for a career in technology.",
+      details: [
+        "Enrolled in advanced courses in programming and algorithms.",
+        "Active in study groups and collaborative projects.",
+        "Member of a programming community.",
+        "Participated in university-level coding competitions."
+      ],
+      skills: ["Mathematics", "Public Speaking", "Leadership"]
+    }
+  ];
+  
+  const workData: ExperienceItem[] = [
+    {
+      id: 'work1',
+      Icon: Briefcase,
+      timePeriod: "2021",
+      title: "Programming Intern at PT Buah Bibir Indonesia",
+      description: "Internship in software development and programming at a technology company.",
+      details: [
+        "Developed web applications for company needs.",
+        "Collaborated with the development team to enhance application performance.",
+        "Conducted debugging and system testing regularly.",
+        "Worked with the design team to ensure interface quality."
+      ],
+      skills: ["Web Programming", "Team Collaboration", "Debugging"]
+    },
+    {
+      id: 'work2',
+      Icon: Laptop,
+      timePeriod: "2023 - 2024",
+      title: "Freelance Developer",
+      description: "Freelance developer experience in various projects.",
+      details: [
+        "Built simple applications for e-commerce purposes.",
+        "Improved system performance and ensured smooth operation.",
+        "Documented the project development process.",
+        "Collaborated with clients to achieve project goals."
+      ],
+      skills: ["Full Stack Development", "DevOps", "Documentation"]
+    },
+    {
+      id: 'work3',
+      Icon: GraduationCap,
+      timePeriod: "2021 - 2024",
+      title: "School Technology Project Team Member",
+      description: "Collaborated in a school project team to build a simple application.",
+      details: [
+        "Developed a web-based application for school needs.",
+        "Handled and fixed application bugs.",
+        "Worked with other team members to complete tasks.",
+        "Performed regular code reviews."
+      ],
+      skills: ["Frontend Development", "Debugging", "Collaboration"]
+    }
+  ];
+  
+  
+
   return (
-    <section 
-      className="text-slate-950 pt-24 pb-24" 
-      id="experience"
-    >
+    <section className="text-slate-950 pt-24 pb-24 min-h-screen bg-gradient-to-b from-white to-blue-50" id="experience">
+      {showAlert && (
+        <div className="fixed top-4 right-4 z-50 sm:top-8 sm:right-8">
+          <Alert>
+            <AlertTitle>Notification</AlertTitle>
+            <AlertDescription>{alertMessage}</AlertDescription>
+          </Alert>
+        </div>
+      )}
+
       <div className="container flex mx-auto px-6 mb-14 justify-center items-center">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg inline-block px-6 py-3 text-white">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg inline-block px-6 py-3 text-white shadow-lg transform">
           Experience
         </h1>
-        <Rocket className="w-12 h-12 ml-4 text-purple-500" />
+        <Rocket className="w-12 h-12 ml-4 text-purple-500 animate-bounce" />
       </div>
-      
-      <div className="container mx-auto px-6 my-8 grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Education Column */}
-        <div className="rounded-2xl bg-white shadow-lg p-8">
-          <div className="relative">
-            {/* Continuous vertical line that spans all items */}
-            <div className="absolute left-5 top-0 w-0.5 h-full bg-gray-200" />
-            
-            <ExperienceItem
-              Icon={GraduationCap}
-              timePeriod="2019-present"
-              title="Academic Degree"
-              description="Pursued advanced studies in computer science with focus on artificial intelligence and machine learning."
-              isLast={false}
-            />
-            <ExperienceItem
-              Icon={Briefcase}
-              timePeriod="2015-2019"
-              title="Bachelor's Degree"
-              description="Completed undergraduate studies in Software Engineering with honors, specializing in web development."
-              isLast={false}
-            />
-            <ExperienceItem
-              Icon={Laptop}
-              timePeriod="2010-2015"
-              title="High School Diploma"
-              description="Graduated with distinction, participated in various programming competitions and tech clubs."
-              isLast={true}
-            />
-          </div>
-        </div>
 
-        {/* Work Experience Column */}
-        <div className="rounded-2xl bg-white shadow-lg p-8">
-          <div className="relative">
-            {/* Continuous vertical line that spans all items */}
-            <div className="absolute left-5 top-0 w-0.5 h-full bg-gray-200" />
-            
-            <ExperienceItem
-              Icon={Briefcase}
-              timePeriod="2020-present"
-              title="Senior Developer"
-              description="Led development teams in creating enterprise-scale applications using modern web technologies."
-              isLast={false}
-            />
-            <ExperienceItem
-              Icon={Laptop}
-              timePeriod="2017-2020"
-              title="Full Stack Developer"
-              description="Developed and maintained full-stack applications using React, Node.js, and various cloud services."
-              isLast={false}
-            />
-            <ExperienceItem
-              Icon={GraduationCap}
-              timePeriod="2013-2017"
-              title="Junior Developer"
-              description="Started career journey with focus on front-end development and UI/UX design principles."
-              isLast={true}
-            />
+      <div className="container mx-auto px-6 mb-8">
+        <div className="flex justify-center space-x-4 flex-wrap">
+          <button
+            onClick={() => setActiveTab('education')}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mb-4 sm:mb-0 ${activeTab === 'education'
+                ? 'bg-blue-500 text-white shadow-lg scale-105'
+                : 'bg-white text-blue-500 hover:bg-blue-50'
+              }`}
+          >
+            <div className="flex items-center">
+              <GraduationCap className="w-5 h-5 mr-2" />
+              Education
+            </div>
+          </button>
+          <button
+            onClick={() => setActiveTab('work')}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mb-4 sm:mb-0 ${activeTab === 'work'
+                ? 'bg-purple-500 text-white shadow-lg scale-105'
+                : 'bg-white text-purple-500 hover:bg-purple-50'
+              }`}
+          >
+            <div className="flex items-center">
+              <Briefcase className="w-5 h-5 mr-2" />
+              Work Experience
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-2xl bg-white shadow-lg p-8 sm:p-12">
+            <div className="relative">
+
+
+              {(activeTab === 'education' ? educationData : workData).map((item, index) => (
+                <ExperienceItemComponent
+                  key={item.id}
+                  {...item}
+                  isLast={index === (activeTab === 'education' ? educationData : workData).length - 1}
+                  isExpanded={expandedItem === item.id}
+                  onToggle={() => setExpandedItem(expandedItem === item.id ? null : item.id)}
+                  onShare={() => handleShare(item.title)}
+                  onDownload={() => handleDownload(item.title)}
+                  likes={likes[item.id] || 0}
+                  onLike={() => handleLike(item.id)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -90,33 +237,100 @@ const Experience = () => {
   );
 };
 
-interface ExperienceItemProps {
-  Icon: React.ElementType;
-  timePeriod: string;
-  title: string;
-  description: string;
-  isLast: boolean;
-}
-
-const ExperienceItem: React.FC<ExperienceItemProps> = ({ Icon, timePeriod, title, description, isLast }) => {
+const ExperienceItemComponent: React.FC<ExperienceItemProps> = ({
+  Icon,
+  timePeriod,
+  title,
+  description,
+  details,
+  skills,
+  isExpanded,
+  onToggle,
+  onShare,
+  onDownload,
+  likes,
+  onLike
+}) => {
   return (
-    <div className="flex mb-8 group relative">
-      <div className="relative mr-6 z-10">
-        {/* Icon container with white background to cover the line */}
-        <div className="p-2 rounded-lg bg-white ring-2 ring-blue-500 group-hover:ring-blue-600 transition-colors">
-          <Icon className="w-6 h-6 text-blue-500 group-hover:text-blue-600" />
+    <div className="group relative">
+      <div className={`flex flex-col sm:flex-row mb-8 p-4 rounded-lg transition-all duration-300 ${isExpanded ? 'bg-blue-50' : 'hover:bg-gray-50'
+        }`}>
+        <div className="relative mr-6 z-10 mb-4 sm:mb-0">
+          <div className={`p-3 rounded-lg bg-white ring-2 transition-all duration-300 ${isExpanded ? 'ring-purple-500 shadow-lg' : 'ring-blue-500 group-hover:ring-purple-500'
+            }`}>
+            <Icon className={`w-6 h-6 transition-colors duration-300 ${isExpanded ? 'text-purple-500' : 'text-blue-500 group-hover:text-purple-500'
+              }`} />
+          </div>
+
         </div>
-        
-        {/* Small decorative dot below icon */}
-        {!isLast && (
-          <div className="absolute -bottom-8 left-1/2 w-2 h-2 bg-blue-500 rounded-full -translate-x-1/2" />
-        )}
-      </div>
-      
-      <div className="flex-1">
-        <span className="text-sm text-gray-600 mb-1 block">{timePeriod}</span>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-base text-gray-700">{description}</p>
+
+        <div className="flex-1">
+          <div className="flex items-start justify-between flex-col sm:flex-row">
+            <div>
+              <span className="text-sm text-gray-600 mb-1 block">{timePeriod}</span>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center">
+                {title}
+                <ChevronRight className={`w-5 h-5 ml-2 transition-transform duration-300 ${isExpanded ? 'rotate-90' : ''
+                  }`} />
+              </h3>
+            </div>
+            <div className="flex space-x-2 mt-4 sm:mt-0">
+              <button
+                onClick={(e: React.MouseEvent) => { e.stopPropagation(); onShare(); }}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <Share2 className="w-5 h-5 text-gray-500" />
+              </button>
+              <button
+                onClick={(e: React.MouseEvent) => { e.stopPropagation(); onDownload(); }}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <Download className="w-5 h-5 text-gray-500" />
+              </button>
+              <button
+                onClick={(e: React.MouseEvent) => { e.stopPropagation(); onLike(); }}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors flex items-center"
+              >
+                <ThumbsUp className="w-5 h-5 text-gray-500 mr-1" />
+                <span className="text-sm text-gray-500">{likes}</span>
+              </button>
+            </div>
+          </div>
+
+          <p className="text-base text-gray-700 mb-4">{description}</p>
+
+          <div
+            onClick={onToggle}
+            className="cursor-pointer flex items-center text-blue-500 hover:text-blue-600 font-medium"
+          >
+            <Eye className="w-4 h-4 mr-2" />
+            {isExpanded ? 'Show less' : 'Show more'}
+          </div>
+
+          {isExpanded && (
+            <div className="mt-4 space-y-4 animate-fadeIn">
+              <div className="bg-white p-4 rounded-lg shadow-md">
+                <h4 className="font-semibold text-gray-900 mb-2">Key Achievements</h4>
+                <ul className="list-disc list-inside space-y-2">
+                  {details.map((detail, index) => (
+                    <li key={index} className="text-gray-700">{detail}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-medium"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

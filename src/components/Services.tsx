@@ -1,112 +1,235 @@
-import React, { useEffect } from 'react';
-import { Wrench, AppWindow, Globe2, Database } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Wrench, AppWindow, Globe2, Database, Code2, Cloud, Shield, ChevronRight } from 'lucide-react';
+
+interface ServiceCardProps {
+  bgColor: string;           
+  title: string;            
+  description: string;
+  Icon: React.ElementType;
+  features: string[];        
+}
+
+// Define the ServiceCard component with the interface
+const ServiceCard: React.FC<ServiceCardProps> = ({ bgColor, title, description, Icon, features }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className={`bg-gradient-to-br ${bgColor} text-white p-4 sm:p-6 md:p-8 rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg transition-all duration-300 hover:shadow-2xl group relative overflow-hidden h-full`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Background Pattern - Adjusted for better mobile visibility */}
+      <div className="absolute inset-0 opacity-5 sm:opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_1px,transparent_1px)] bg-[length:16px_16px] sm:bg-[length:20px_20px]" />
+      </div>
+
+      <div className="relative">
+        {/* Icon Container - Responsive sizing */}
+        <div className="bg-white/20 p-2 sm:p-3 md:p-4 rounded-md sm:rounded-lg md:rounded-xl mb-3 sm:mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm w-fit">
+          <Icon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
+        </div>
+
+        {/* Content - Improved text sizing for mobile */}
+        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2 md:mb-3">{title}</h2>
+        <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4 md:mb-6">{description}</p>
+
+        {/* Features List - Better spacing for mobile */}
+        <ul className="space-y-1.5 sm:space-y-2">
+          {features.map((feature, index) => (
+            <li
+              key={index}
+              className={`flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm transform-gpu transition-all duration-300 ${
+                isHovered ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'
+              }`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-white rounded-full" />
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 
 const Services = () => {
+  const [activeTab, setActiveTab] = useState('all');
+  const [isVisible, setIsVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
   useEffect(() => {
-    // Handle scroll to section when URL has hash
-    const handleHash = () => {
-      const hash = window.location.hash;
-      if (hash === '#services') {
-        const element = document.getElementById('services');
-        if (element) {
-          // Add a slight delay to ensure smooth scroll after page load
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 100); // Menambahkan sedikit delay untuk smooth scroll
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      setScrollProgress(scrollPercent);
+
+      const element = document.getElementById('services');
+      if (element) {
+        const position = element.getBoundingClientRect();
+        const threshold = window.innerHeight * 0.2;
+        if (position.top < window.innerHeight - threshold) {
+          setIsVisible(true);
         }
       }
     };
 
-    // Handle initial load
-    handleHash();
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
 
-    // Add listener for hash changes
-    window.addEventListener('hashchange', handleHash); // Menambahkan event listener untuk hash change
-    return () => window.removeEventListener('hashchange', handleHash); // Membersihkan listener saat komponen di-unmount
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const services = [
+    {
+      category: 'development',
+      title: "App Development",
+      description: "Create stunning mobile and web applications with cutting-edge technology and user-centric design principles.",
+      Icon: AppWindow,
+      bgColor: "from-purple-600 to-indigo-500",
+      features: ["Native & Cross-platform", "UI/UX Design", "Performance Optimization"]
+    },
+    {
+      category: 'development',
+      title: "Web Development",
+      description: "Build responsive and dynamic websites that engage users and drive results for your business.",
+      Icon: Globe2,
+      bgColor: "from-yellow-400 to-orange-400",
+      features: ["Responsive Design", "SEO Optimization", "Fast Loading"]
+    },
+    {
+      category: 'backend',
+      title: "API Development",
+      description: "Design and implement robust APIs that power your applications with reliable data integration.",
+      Icon: Database,
+      bgColor: "from-red-500 to-pink-500",
+      features: ["RESTful & GraphQL", "Authentication", "Documentation"]
+    },
+    {
+      category: 'development',
+      title: "Code Review",
+      description: "Get expert review and optimization suggestions for your existing codebase.",
+      Icon: Code2,
+      bgColor: "from-green-500 to-teal-500",
+      features: ["Best Practices", "Security Check", "Performance Tips"]
+    },
+    {
+      category: 'infrastructure',
+      title: "Cloud Solutions",
+      description: "Deploy and manage your applications in the cloud with optimal performance and scaling.",
+      Icon: Cloud,
+      bgColor: "from-blue-400 to-cyan-500",
+      features: ["AWS & Azure", "Auto-scaling", "Monitoring"]
+    },
+    {
+      category: 'security',
+      title: "Security Services",
+      description: "Protect your applications and data with comprehensive security measures.",
+      Icon: Shield,
+      bgColor: "from-violet-500 to-purple-500",
+      features: ["Penetration Testing", "Security Audit", "Encryption"]
+    }
+  ];
+
+  const categories = [
+    { id: 'all', name: 'All Services' },
+    { id: 'development', name: 'Development' },
+    { id: 'backend', name: 'Backend' },
+    { id: 'infrastructure', name: 'Infrastructure' },
+    { id: 'security', name: 'Security' }
+  ];
+
+  const filteredServices = activeTab === 'all'
+    ? services
+    : services.filter(service => service.category === activeTab);
+
   return (
-    <section className="py-24 scroll-mt-16" id="service">
-      {/* Section Title */}
-      <div className="container mx-auto text-center px-6 mb-12 relative">
-        <div className="flex items-center justify-center gap-4">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg inline-block px-6 py-3 text-white shadow-lg">
-            Services {/* Judul bagian layanan */}
-          </h1>
-          <Wrench className="w-12 h-12 text-purple-500" /> {/* Ikon alat */}
+    <section className="py-8 sm:py-16 md:py-24 scroll-mt-16 bg-gradient-to-b from-gray-50 to-white relative" id="services">
+      {/* Scroll Progress Indicator */}
+      <div 
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 z-50 transition-all duration-300"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
+      {/* Section Title - Improved mobile spacing */}
+      <div className="container mx-auto text-center px-3 sm:px-4 md:px-6 mb-8 sm:mb-12 md:mb-16">
+        <div className="transform-gpu translate-y-0 opacity-100 transition duration-700 ease-out">
+          <div className="relative inline-block">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg inline-block px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-white shadow-lg">
+              Services
+            </h1>
+            <div className="absolute -right-6 sm:-right-8 md:-right-16 top-1 sm:top-2 md:top-4 animate-bounce">
+              <Wrench className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 text-purple-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* Category Tabs - Improved mobile scrolling */}
+        <div className="mt-6 sm:mt-8 md:mt-12 overflow-x-auto scrollbar-hide pb-2 sm:pb-4 md:pb-0 -mx-3 px-3 sm:mx-0 md:px-0">
+          <div className="flex whitespace-nowrap md:flex-wrap justify-start md:justify-center gap-2 sm:gap-3 md:gap-4 min-w-full">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveTab(category.id)}
+                className={`px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-sm sm:text-base transition-all duration-300 flex-shrink-0 ${
+                  activeTab === category.id
+                    ? 'bg-blue-500 text-white shadow-lg scale-105'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* List of Services */}
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Service Card: App Development */}
-          <ServiceCard
-            bgColor="from-purple-600 to-indigo-500" // Warna gradien untuk latar belakang
-            title="App Development" // Judul layanan
-            description="Saya siap membantu Anda membuat aplikasi mobile dan web yang mudah digunakan dan efektif, dengan fokus pada desain dan kinerja terbaik."
-            Icon={AppWindow} // Ikon untuk aplikasi
-          />
-
-          {/* Service Card: Web Development */}
-          <ServiceCard
-            bgColor="from-yellow-400 to-orange-400" // Warna gradien untuk latar belakang
-            title="Web Development" // Judul layanan
-            description="Saya akan membangun situs web responsif dan aman untuk Anda, memastikan kehadiran online Anda semakin kuat dan menarik."
-            Icon={Globe2} // Ikon untuk pengembangan web
-          />
-
-          {/* Service Card: API Development */}
-          <ServiceCard
-            bgColor="from-red-500 to-pink-500" // Warna gradien untuk latar belakang
-            title="API Development" // Judul layanan
-            description="Saya bisa mengembangkan API yang andal untuk memudahkan integrasi dan pertukaran data di aplikasi Anda."
-            Icon={Database} // Ikon untuk pengembangan API
-          />
+      {/* Services Grid - Adjusted grid columns for mobile */}
+      <div className="container mx-auto px-3 sm:px-4 md:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
+          {filteredServices.map((service, index) => (
+            <div
+              key={service.title}
+              className={`transform-gpu transition-all duration-700 ease-out ${
+                isVisible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-8 opacity-0'
+              }`}
+              style={{ transitionDelay: `${index * 150}ms` }}
+            >
+              <ServiceCard {...service} />
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Contact CTA */}
-      <div className="container mx-auto px-6 flex justify-center mt-12">
-        <div className="text-lg text-center">
-          Looking for a custom job?{' '}
+      {/* Contact CTA - Better mobile spacing */}
+      <div className={`container mx-auto px-3 sm:px-4 md:px-6 mt-8 sm:mt-12 md:mt-16 transform-gpu transition-all duration-700 ease-out ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      }`}>
+        <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto text-center text-white shadow-xl">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 md:mb-4">Ready to Start Your Project?</h3>
+          <p className="text-sm sm:text-base md:text-lg mb-3 sm:mb-4 md:mb-6">Let&apos;s discuss how I can help bring your ideas to life!</p>
           <a
-            href="#contact" // Tautan untuk bagian kontak
-            className="text-blue-500 hover:text-blue-600 hover:underline font-medium"
+            href="#contact"
             onClick={(e) => {
-              e.preventDefault(); // Mencegah tautan default
-              const contactSection = document.getElementById('contact'); // Mencari elemen bagian kontak
+              e.preventDefault();
+              const contactSection = document.getElementById('contact');
               if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Gulir ke bagian kontak dengan smooth scroll
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
             }}
+            className="inline-flex items-center gap-1.5 sm:gap-2 bg-white text-blue-500 px-4 sm:px-6 md:px-8 py-2 md:py-3 rounded-full text-sm sm:text-base font-semibold hover:bg-blue-50 transition-colors duration-300"
           >
-            Click here
-          </a>{' '}
-          to contact me! 👋
+            Contact Me
+            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+          </a>
         </div>
       </div>
     </section>
-  );
-};
-
-interface ServiceCardProps {
-  bgColor: string; // Properti warna gradien untuk latar belakang
-  title: string; // Judul layanan
-  description: string; // Deskripsi layanan
-  Icon: React.ElementType; // Komponen ikon yang digunakan
-}
-
-// Komponen untuk menampilkan kartu layanan
-const ServiceCard: React.FC<ServiceCardProps> = ({ bgColor, title, description, Icon }) => {
-  return (
-    <div className={`bg-gradient-to-br ${bgColor} text-white p-8 rounded-2xl shadow-lg hover:-translate-y-1 transition-all duration-300 hover:shadow-2xl flex flex-col items-center text-center group`}>
-      <div className="bg-white/20 p-4 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
-        <Icon className="w-12 h-12" /> {/* Menampilkan ikon yang diterima sebagai properti */}
-      </div>
-      <h2 className="text-2xl font-semibold mb-3">{title}</h2> {/* Judul layanan */}
-      <p className="text-base leading-relaxed">{description}</p> {/* Deskripsi layanan */}
-    </div>
   );
 };
 
