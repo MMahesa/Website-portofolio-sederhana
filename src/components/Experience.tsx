@@ -75,7 +75,7 @@ const Experience: React.FC = () => {
     {
       id: 'edu1',
       Icon: GraduationCap,
-      timePeriod: "2018 - 2021",
+      timePeriod: "2015 - 2018",
       title: "Junior High School",
       description: "Studied foundational knowledge and self-development through academic and extracurricular activities.",
       details: [
@@ -89,7 +89,7 @@ const Experience: React.FC = () => {
     {
       id: 'edu2',
       Icon: Briefcase,
-      timePeriod: "2021 - 2024",
+      timePeriod: "2018 - 2021",
       title: "Senior High School",
       description: "Gained a deeper understanding of science and prepared for higher education.",
       details: [
@@ -115,26 +115,26 @@ const Experience: React.FC = () => {
       skills: ["Mathematics", "Public Speaking", "Leadership"]
     }
   ];
-  
+
   const workData: ExperienceItem[] = [
     {
-      id: 'work1',
-      Icon: Briefcase,
+      id: 'work3',
+      Icon: GraduationCap,
       timePeriod: "2021",
-      title: "Programming Intern at PT Buah Bibir Indonesia",
-      description: "Internship in software development and programming at a technology company.",
+      title: "School Technology Project Team Member",
+      description: "Collaborated in a school project team to build a simple application.",
       details: [
-        "Developed web applications for company needs.",
-        "Collaborated with the development team to enhance application performance.",
-        "Conducted debugging and system testing regularly.",
-        "Worked with the design team to ensure interface quality."
+        "Developed a web-based application for school needs.",
+        "Handled and fixed application bugs.",
+        "Worked with other team members to complete tasks.",
+        "Performed regular code reviews."
       ],
-      skills: ["Web Programming", "Team Collaboration", "Debugging"]
+      skills: ["Frontend Development", "Debugging", "Collaboration"]
     },
     {
       id: 'work2',
       Icon: Laptop,
-      timePeriod: "2023 - 2024",
+      timePeriod: "2021 - 2023",
       title: "Freelance Developer",
       description: "Freelance developer experience in various projects.",
       details: [
@@ -146,22 +146,24 @@ const Experience: React.FC = () => {
       skills: ["Full Stack Development", "DevOps", "Documentation"]
     },
     {
-      id: 'work3',
-      Icon: GraduationCap,
-      timePeriod: "2021 - 2024",
-      title: "School Technology Project Team Member",
-      description: "Collaborated in a school project team to build a simple application.",
+      id: 'work1',
+      Icon: Briefcase,
+      timePeriod: "2024 - Present",
+      title: "Software & Web Developer at PT Buah Bibir Indonesia",
+      description: "Developing and optimizing software and web applications for business solutions.",
       details: [
-        "Developed a web-based application for school needs.",
-        "Handled and fixed application bugs.",
-        "Worked with other team members to complete tasks.",
-        "Performed regular code reviews."
+        "Building and maintaining scalable web applications.",
+        "Developing software solutions to enhance business processes.",
+        "Ensuring application security and performance optimization.",
+        "Collaborating with designers and developers to improve user experience.",
+        "Conducting code reviews and implementing best practices."
       ],
-      skills: ["Frontend Development", "Debugging", "Collaboration"]
+      skills: ["Software Development", "Web Development", "Performance Optimization", "Code Review", "UI/UX Collaboration"]
     }
+
   ];
-  
-  
+
+
 
   return (
     <section className="text-slate-950 pt-24 pb-24 min-h-screen bg-gradient-to-b from-white to-blue-50" id="experience">
@@ -186,8 +188,8 @@ const Experience: React.FC = () => {
           <button
             onClick={() => setActiveTab('education')}
             className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mb-4 sm:mb-0 ${activeTab === 'education'
-                ? 'bg-blue-500 text-white shadow-lg scale-105'
-                : 'bg-white text-blue-500 hover:bg-blue-50'
+              ? 'bg-blue-500 text-white shadow-lg scale-105'
+              : 'bg-white text-blue-500 hover:bg-blue-50'
               }`}
           >
             <div className="flex items-center">
@@ -198,8 +200,8 @@ const Experience: React.FC = () => {
           <button
             onClick={() => setActiveTab('work')}
             className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mb-4 sm:mb-0 ${activeTab === 'work'
-                ? 'bg-purple-500 text-white shadow-lg scale-105'
-                : 'bg-white text-purple-500 hover:bg-purple-50'
+              ? 'bg-purple-500 text-white shadow-lg scale-105'
+              : 'bg-white text-purple-500 hover:bg-purple-50'
               }`}
           >
             <div className="flex items-center">

@@ -17,10 +17,10 @@ const IndexPage: React.FC = () => {
   return (
     <div className="font-rubik bg-gradient-to-r bg-slate-100 min-h-screen">
       <Head>
-        <title>MMahesa.com</title>
+        <title>Arzeaa.com</title>
         <meta
           name="description"
-          content="Portfolio website of Muhamad Mahesa, Web Developer & Software Engineer."
+          content="Portfolio website of Arzeaa, Web Developer & Software Engineer."
         />
       </Head>
 
