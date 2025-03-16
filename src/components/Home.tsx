@@ -52,7 +52,7 @@ const Home: React.FC = () => {
             <div className="relative group">
               <Image
                 className="w-48 h-48 bg-yellow-300 rounded-full mt-12 p-2 transition-transform duration-300 group-hover:scale-105"
-                src="/images/face.png"
+                src="/images/nime.jpeg"
                 alt="Face icon"
                 width={192}
                 height={192}
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          <h1 className="text-4xl font-medium text-white mt-5 animate-fadeIn">Muhamad Mahesa</h1>
+          <h1 className="text-4xl font-medium text-white mt-5 animate-fadeIn">Arzeaa</h1>
           <h1 className="text-xl font-thin text-white mt-3">
             I&apos;m a Web Developer & Software Engineer
           </h1>

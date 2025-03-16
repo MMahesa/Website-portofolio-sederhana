@@ -136,7 +136,7 @@ const About: React.FC = () => {
               <div className="rounded-2xl shadow-xl w-full overflow-hidden">
                 <Image
                   className="object-cover transform transition-transform duration-500 group-hover:scale-105"
-                  src="/images/saya2.png"
+                  src="/images/nime.jpeg"
                   alt="Profile"
                   width={400}
                   height={400}
@@ -160,7 +160,7 @@ const About: React.FC = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Muhammad Mahesa</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Arzeaa</h2>
               <p className="text-gray-600 dark:text-gray-400 mt-2">Web Developer & Software Engineer</p>
               <button className="mt-4 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full flex items-center justify-center mx-auto gap-2 transform transition-transform hover:scale-105">
                 <Download className="w-5 h-5" />
@@ -173,7 +173,7 @@ const About: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl">
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-lg text-slate-200 leading-relaxed">
-                  Hello, I&apos;m Muhammad Mahesa, a passionate web developer and software engineer from Jakarta.
+                  Hello, I&apos;m Arzeaa, a passionate web developer and software engineer from Jakarta.
                   With a keen eye for detail and a love for clean code, I specialize in creating efficient,
                   high-performance digital solutions that make a difference.
                 </p>

@@ -45,10 +45,10 @@ const Header = () => {
         {/* Logo dengan animasi */}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
           <span className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300">
-            M
+            Ar
           </span>
           <span className="text-white hover:text-yellow-100 transition-colors duration-300">
-            Mahesa
+            zeaa
           </span>
           <span className="text-red-500 inline-block hover:scale-110 transition-transform duration-300 ml-1">
             <span className="animate-pulse">{"</>"}</span>
