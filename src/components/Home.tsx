@@ -47,7 +47,7 @@ const Home: React.FC = () => {
   return (
     <main className="text-white font-rubik min-h-screen">
       <section className="home flex items-center justify-center text-center min-h-screen" id="home">
-        <div className="container z-1 0 mx-auto px-4">
+        <div className="container z-10 mx-auto px-4">
           <div className="mb-6 flex justify-center">
             <div className="relative group">
               <Image
