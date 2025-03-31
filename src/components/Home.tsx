@@ -47,7 +47,7 @@ const Home: React.FC = () => {
   return (
     <main className="text-white font-rubik min-h-screen">
       <section className="home flex items-center justify-center text-center min-h-screen" id="home">
-        <div className="container z-10 mx-auto px-4">
+        <div className="container z-1 0 mx-auto px-4">
           <div className="mb-6 flex justify-center">
             <div className="relative group">
               <Image
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          <h1 className="text-4xl font-medium text-white mt-5 animate-fadeIn">Arzeaa</h1>
+          <h1 className="text-4xl font-medium text-white mt-5 animate-fadeIn">Muhamad Mahesa</h1>
           <h1 className="text-xl font-thin text-white mt-3">
             I&apos;m a Web Developer & Software Engineer
           </h1>

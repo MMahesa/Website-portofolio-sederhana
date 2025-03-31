@@ -140,7 +140,7 @@ const ContactSection = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Arzeaa"
+                  placeholder="Mahesa"
                   className={`w-full p-3 border rounded-lg bg-gray-50 transition-all duration-300 focus:ring-2 
                     ${errors.name ? 'border-red-500 focus:ring-red-200' : 'border-gray-200 focus:ring-blue-200'}`}
                 />
@@ -161,7 +161,7 @@ const ContactSection = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Arzeaa@example.com"
+                  placeholder="Mahesa@example.com"
                   className={`w-full p-3 border rounded-lg bg-gray-50 transition-all duration-300 focus:ring-2
                     ${errors.email ? 'border-red-500 focus:ring-red-200' : 'border-gray-200 focus:ring-blue-200'}`}
                 />
@@ -215,7 +215,7 @@ const ContactSection = () => {
           {/* Informasi tambahan atau bukti sosial */}
           <div className="mt-10 text-center text-gray-500 text-sm">
             <p>
-              <span>Made with 💙 by Arzeaa</span>
+              <span>Made with 💙 by Mahesa</span>
             </p>
           </div>
         </div>
